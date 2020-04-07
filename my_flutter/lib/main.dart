@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,14 +10,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or press Run > Flutter Hot Reload in a Flutter IDE). Notice that the
-        // counter didn't reset back to zero; the application is not restarted.
+
         primarySwatch: Colors.blue,
         
       ),
@@ -43,6 +37,29 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  //创建一个给native的channel (类似iOS的通知）
+  static const methodChannel = const MethodChannel('com.pages.your/native_get');
+  void _iOSPushToVC() async {
+    await methodChannel.invokeMethod('iOSFlutter', '参数');
+  }
+
+  // 注册一个通知
+  static const EventChannel eventChannel = const EventChannel('com.pages.your/native_post');
+  void initState() {
+    super.initState();
+     // 监听事件，同时发送参数12345
+    eventChannel.receiveBroadcastStream(12345).listen(_onEvent,onError: _onError);
+  }
+  // 回调事件
+  void _onEvent(Object event) {
+    setState(() {
+      debugPrint(event.toString());
+    });
+  }
+  // 错误返回
+  void _onError(Object error) {
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,6 +67,14 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
+        leading: IconButton(
+              icon: Icon(Icons.menu), 
+              tooltip: 'Navigreation',            
+              onPressed: () {
+                debugPrint('导航栏点击2');
+                  _iOSPushToVC();
+                }
+              ),
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
