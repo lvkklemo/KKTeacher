@@ -1,0 +1,21 @@
+source 'https://github.com/CocoaPods/Specs.git'
+source 'https://github.com/baijia/specs.git'
+
+platform :ios, "9.0"
+inhibit_all_warnings!
+use_frameworks!
+#xcodeproj 'HQTeacher.xcodeproj'
+flutter_application_path = '../my_flutter'
+load File.join(flutter_application_path, '.ios', 'Flutter', 'podhelper.rb')
+
+target "kk_teacher" do
+
+  install_all_flutter_pods(flutter_application_path)
+
+end
+
+
+#$ gem sources --add https://gems.ruby-china.com/ --remove https://rubygems.org/
+#$ gem sources -l
+#https://gems.ruby-china.com
+# 确保只有 gems.ruby-china.com
