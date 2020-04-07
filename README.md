@@ -3,7 +3,8 @@
 
 #### 1.`flutter`环境搭建
 
-[官网下载地址](https://flutter.dev/docs/get-started/install/macos)
+- [x] [官网下载地址](https://flutter.dev/docs/get-started/install/macos)
+
 
 ```
 cd ~/development
@@ -34,14 +35,14 @@ flutter run  //运行项目
 
 #### 2.创建文件夹`KKTeacher`
 
-1.首先执行命令创建，flutter项目module
+- [x] 首先执行命令创建，flutter项目module
 
 ```
 cd /Users/yuhanglv/Desktop/KKTeacher
 flutter create -t module my_flutter
 ```
 
-2.在`KKTeacher`目录下创建xcode原生项目,修改Podfile
+- [x] 在`KKTeacher`目录下创建xcode原生项目,修改Podfile
 
 ```
 source 'https://github.com/CocoaPods/Specs.git'
@@ -58,7 +59,7 @@ target "kk_teacher" do
 end
 ```
 
-3.执行 `pod install`
+- [x] 执行 `pod install`
 
 #### 3.Xcode项目设置
 
